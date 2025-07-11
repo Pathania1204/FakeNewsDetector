@@ -115,7 +115,7 @@ def train_and_save_model(dataset_path):
 def create_sample_dataset():
     """Create a sample dataset for testing"""
     sample_data = [
-        # Fake news examples
+        # Fake news examples - more diverse and realistic
         {
             'text': 'BREAKING: Scientists discover that drinking water causes cancer in 99% of cases, government covers up the truth!',
             'label': 'fake'
@@ -136,7 +136,67 @@ def create_sample_dataset():
             'text': 'Government announces mandatory curfew starting tomorrow, all citizens must stay indoors or face imprisonment',
             'label': 'fake'
         },
-        # Real news examples
+        {
+            'text': 'Alien invasion confirmed by military sources, UFOs spotted over major cities worldwide',
+            'label': 'fake'
+        },
+        {
+            'text': 'Miracle cure discovered: This common household item can cure all diseases instantly',
+            'label': 'fake'
+        },
+        {
+            'text': 'President secretly replaced by body double, insider reveals shocking truth',
+            'label': 'fake'
+        },
+        {
+            'text': 'Scientists confirm flat earth theory, NASA admits decades of deception',
+            'label': 'fake'
+        },
+        {
+            'text': 'New law requires all citizens to surrender their pets to government facilities',
+            'label': 'fake'
+        },
+        {
+            'text': 'EXCLUSIVE: Hollywood actor found dead in hotel room, police suspect murder by rival celebrity',
+            'label': 'fake'
+        },
+        {
+            'text': 'Government secretly adding mind control chemicals to tap water supply across major cities',
+            'label': 'fake'
+        },
+        {
+            'text': 'Breaking: Internet will be shut down permanently next week due to cyberattack threat',
+            'label': 'fake'
+        },
+        {
+            'text': 'Scientists prove that 5G towers cause coronavirus spread, WHO refuses to comment',
+            'label': 'fake'
+        },
+        {
+            'text': 'Billionaire announces plan to buy all social media platforms and delete them forever',
+            'label': 'fake'
+        },
+        {
+            'text': 'URGENT: Meteor headed toward Earth, NASA covers up impending disaster',
+            'label': 'fake'
+        },
+        {
+            'text': 'New study reveals that smartphones are actually government surveillance devices',
+            'label': 'fake'
+        },
+        {
+            'text': 'Doctor discovers that sleeping 12 hours a day prevents aging completely',
+            'label': 'fake'
+        },
+        {
+            'text': 'Breaking: Time travel machine invented by teenager in garage, government seizes device',
+            'label': 'fake'
+        },
+        {
+            'text': 'Shocking: Popular food chain secretly using human meat in their burgers',
+            'label': 'fake'
+        },
+        # Real news examples - more diverse and realistic
         {
             'text': 'The Federal Reserve announced a quarter-point interest rate increase following their latest meeting on monetary policy',
             'label': 'real'
@@ -156,27 +216,70 @@ def create_sample_dataset():
         {
             'text': 'University researchers develop new method for recycling plastic waste into construction materials',
             'label': 'real'
+        },
+        {
+            'text': 'Stock market closes higher as investors react positively to quarterly earnings reports',
+            'label': 'real'
+        },
+        {
+            'text': 'Public health officials recommend flu vaccination ahead of winter season',
+            'label': 'real'
+        },
+        {
+            'text': 'Construction begins on new highway bridge to improve traffic flow in metro area',
+            'label': 'real'
+        },
+        {
+            'text': 'University announces new scholarship program for students pursuing STEM degrees',
+            'label': 'real'
+        },
+        {
+            'text': 'Environmental agency releases annual report on air quality improvements in urban areas',
+            'label': 'real'
+        },
+        {
+            'text': 'Technology company reports strong quarterly earnings, stock price rises 5 percent',
+            'label': 'real'
+        },
+        {
+            'text': 'City council approves budget for new public library construction project',
+            'label': 'real'
+        },
+        {
+            'text': 'Medical researchers at Johns Hopkins publish study on diabetes prevention methods',
+            'label': 'real'
+        },
+        {
+            'text': 'National park service announces new conservation program to protect endangered species',
+            'label': 'real'
+        },
+        {
+            'text': 'Transportation department completes road repair project ahead of schedule',
+            'label': 'real'
+        },
+        {
+            'text': 'Local hospital receives accreditation for excellence in patient care standards',
+            'label': 'real'
+        },
+        {
+            'text': 'Energy company announces investment in renewable solar power infrastructure',
+            'label': 'real'
+        },
+        {
+            'text': 'Education ministry releases new curriculum guidelines for mathematics teaching',
+            'label': 'real'
+        },
+        {
+            'text': 'Fire department responds to apartment building fire, no injuries reported',
+            'label': 'real'
+        },
+        {
+            'text': 'Agricultural department issues guidelines for sustainable farming practices',
+            'label': 'real'
         }
     ]
     
-    # Create more diverse examples
-    additional_fake = [
-        {'text': 'Alien invasion confirmed by military sources, UFOs spotted over major cities worldwide', 'label': 'fake'},
-        {'text': 'Miracle cure discovered: This common household item can cure all diseases instantly', 'label': 'fake'},
-        {'text': 'President secretly replaced by body double, insider reveals shocking truth', 'label': 'fake'},
-        {'text': 'Scientists confirm flat earth theory, NASA admits decades of deception', 'label': 'fake'},
-        {'text': 'New law requires all citizens to surrender their pets to government facilities', 'label': 'fake'},
-    ]
-    
-    additional_real = [
-        {'text': 'Stock market closes higher as investors react positively to quarterly earnings reports', 'label': 'real'},
-        {'text': 'Public health officials recommend flu vaccination ahead of winter season', 'label': 'real'},
-        {'text': 'Construction begins on new highway bridge to improve traffic flow in metro area', 'label': 'real'},
-        {'text': 'University announces new scholarship program for students pursuing STEM degrees', 'label': 'real'},
-        {'text': 'Environmental agency releases annual report on air quality improvements in urban areas', 'label': 'real'},
-    ]
-    
-    all_data = sample_data + additional_fake + additional_real
+    all_data = sample_data
     
     # Save to CSV
     df = pd.DataFrame(all_data)
