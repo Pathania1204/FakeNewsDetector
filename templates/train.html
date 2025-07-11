@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}Train Model - Fake News Detector{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="display-5 mb-3">
+                <i class="fas fa-cogs text-primary me-3"></i>
+                Model Training
+            </h1>
+            <p class="lead text-muted">
+                Train the fake news detection model with your own dataset or use the built-in sample data.
+            </p>
+        </div>
+
+        <div class="row">
+            <!-- Upload Dataset -->
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-upload me-2"></i>
+                            Upload Custom Dataset
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('upload_dataset') }}" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Select CSV File</label>
+                                <input class="form-control" type="file" id="file" name="file" accept=".csv,.txt" required>
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    CSV file must contain 'text' and 'label' columns
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info" role="alert">
+                                <h6 class="alert-heading">
+                                    <i class="fas fa-table me-2"></i>
+                                    Required Format
+                                </h6>
+                                <p class="mb-2">Your CSV file should have these columns:</p>
+                                <ul class="mb-2">
+                                    <li><strong>text:</strong> News article or headline</li>
+                                    <li><strong>label:</strong> "real" or "fake" (or "1" or "0")</li>
+                                </ul>
+                                <small class="text-muted">
+                                    Example: text,label<br>
+                                    "Breaking news about...",fake<br>
+                                    "Official statement from...",real
+                                </small>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-info">
+                                    <i class="fas fa-upload me-2"></i>
+                                    Upload Dataset
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Train Model -->
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-play me-2"></i>
+                            Train Model
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('train_model') }}">
+                            <div class="mb-3">
+                                <label for="dataset_file" class="form-label">Select Dataset</label>
+                                <select class="form-select" id="dataset_file" name="dataset_file" required>
+                                    <option value="">Choose a dataset...</option>
+                                    {% for dataset in datasets %}
+                                    <option value="data/{{ dataset }}">{{ dataset }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Available datasets in the data folder
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-warning" role="alert">
+                                <h6 class="alert-heading">
+                                    <i class="fas fa-clock me-2"></i>
+                                    Training Process
+                                </h6>
+                                <p class="mb-0">
+                                    Model training may take a few minutes depending on dataset size. 
+                                    The page will refresh when training is complete.
+                                </p>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-play me-2"></i>
+                                    Start Training
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Available Datasets -->
+        {% if datasets %}
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-database me-2"></i>
+                    Available Datasets
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Dataset Name</th>
+                                <th>File Size</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dataset in datasets %}
+                            <tr>
+                                <td>
+                                    <i class="fas fa-file-csv me-2"></i>
+                                    {{ dataset }}
+                                </td>
+                                <td>
+                                    <small class="text-muted">Available</small>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success">Ready</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">No Datasets Available</h5>
+                <p class="text-muted">
+                    Upload a CSV file to get started with model training.
+                    A sample dataset will be created automatically when you first run the training.
+                </p>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Model Information -->
+        <div class="card shadow-sm mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Model Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Algorithm</h6>
+                        <p class="text-muted">Logistic Regression with TF-IDF vectorization</p>
+                        
+                        <h6>Features</h6>
+                        <ul class="text-muted">
+                            <li>Text preprocessing with stemming</li>
+                            <li>Stop word removal</li>
+                            <li>N-gram analysis (1-2 grams)</li>
+                            <li>Maximum 10,000 features</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Performance</h6>
+                        <p class="text-muted">
+                            Model accuracy depends on dataset quality and size. 
+                            Larger, more diverse datasets typically yield better results.
+                        </p>
+                        
+                        <h6>Best Practices</h6>
+                        <ul class="text-muted">
+                            <li>Use balanced datasets (equal fake/real examples)</li>
+                            <li>Include diverse news sources</li>
+                            <li>Retrain regularly with new data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
