@@ -19,7 +19,7 @@ ALLOWED_EXTENSIONS = {'csv', 'txt'}
 MODEL_FOLDER = 'model'
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 
 
 # Ensure directories exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -160,6 +160,5 @@ def model_status():
         'model_path': model_path if model_exists else None,
         'vectorizer_path': vectorizer_path if model_exists else None
     })
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(port=5050, debug=True)
