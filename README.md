@@ -1,4 +1,4 @@
-# 📰 Fake News Radar
+# 📰 Fake News Detection System
 
 A machine learning-based fake news detection system built using Python, Flask, and scikit-learn.
 
